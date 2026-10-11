@@ -39,10 +39,16 @@ const CATALOGO = {
       paginas: 9, capa: 'assets/capas/b6.webp', pdf: 'pdf/bonus-6-compras.pdf' },
   ],
 
-  // "Produtos Extras" (orderbumps): nenhum por enquanto. Com a lista vazia a secao
-  // some da home. Formato de cada item, para quando entrarem:
-  //   { slug, titulo, sub, paginas, de, por, liberado, capa, pdf, checkout }
-  ofertas: [],
+  // "Produtos Extras" (orderbumps do checkout de arame). liberado: true = aparece aberto
+  // para todo mundo (o app ainda nao sabe quem comprou o bump), como no app de mochilas.
+  // `paginas` inclui a capa. Formato: { slug, titulo, sub, paginas, de, por, liberado, capa, pdf, checkout }
+  ofertas: [
+    { slug: 'pulseiras', titulo: '50 Projetos de Pulseiras de Arame',
+      sub: 'Cabochão, espirais, tranças e símbolos, com tabela de corte e passo a passo.',
+      paginas: 101, de: 'R$ 19,90', por: 'R$ 4,90', liberado: true,
+      capa: 'assets/capas/pulseiras.webp',
+      pdf: 'pdf/extra-pulseiras-de-arame.pdf', checkout: 'https://pay.wiapy.com/bFH2Y-ATodBc' },
+  ],
 
   // A aba de VÍDEOS. Vazia = a aba mostra o cadeado e o aviso de "Em breve".
   // Formato de cada item: { id: '<id do Wistia>', seg: <duração em segundos> }.
