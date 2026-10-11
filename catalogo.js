@@ -26,7 +26,7 @@ const CATALOGO = {
   // acertar `paginas` e trocar embreve para false (ou apagar a linha).
   bonus: [
     { slug: 'b1', titulo: '30 Brincos com Pedra Bruta', sub: 'A gaiola de arame que prende a pedra sem cola e sem furo',
-      paginas: 31, capa: 'assets/capas/b1.webp', pdf: 'pdf/bonus-1-pedra-bruta.pdf', embreve: true },
+      paginas: 31, capa: 'assets/capas/b1.webp', pdf: 'pdf/bonus-1-pedra-bruta.pdf' },
     { slug: 'b2', titulo: 'Tabela de Bitolas e Onde Comprar', sub: 'Qual arame comprar para cada parte da peça',
       paginas: 9, capa: 'assets/capas/b2.webp', pdf: 'pdf/bonus-2-bitolas.pdf' },
     { slug: 'b3', titulo: 'Guia de Acabamento do Gancho', sub: 'O detalhe que faz a peça parecer de loja',
