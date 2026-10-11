@@ -125,9 +125,41 @@ a{text-decoration:none; color:inherit}
   margin-top:13px; background:var(--rosa); color:#fff;
   font-size:14.5px; font-weight:800; letter-spacing:.01em;
   padding:13px 18px; border-radius:14px;
-  box-shadow:0 6px 16px rgba(200,70,111,.32);
+  box-shadow:0 6px 16px rgba(179,90,38,.32);
 }
 .cta svg{width:16px; height:16px}
+
+/* ── a missão: o primeiro par, passo a passo, com caixinha de marcar ── */
+.missao{
+  background:var(--branco); border-radius:22px; padding:18px 16px 14px;
+  box-shadow:var(--sombra-alta); position:relative; overflow:hidden;
+}
+.missao::before{
+  content:""; position:absolute; left:-60px; bottom:-60px; width:160px; height:160px;
+  border-radius:50%; background:var(--turq-nevoa); z-index:0;
+}
+.missao > *{position:relative; z-index:1}
+.missao .alvo{display:flex; gap:12px; align-items:center; margin-bottom:12px}
+.missao .alvo img{width:58px; height:auto; border-radius:9px; box-shadow:0 6px 14px rgba(30,42,50,.18)}
+.missao .alvo b{display:block; font-family:var(--serif); font-size:17px; line-height:1.2}
+.missao .alvo span{font-size:12px; font-weight:700; color:var(--cinza)}
+.missao ol{list-style:none; margin:0; padding:0}
+.missao li{display:flex; gap:11px; align-items:flex-start; padding:10px 0; border-top:1px solid var(--linha)}
+.missao li button{
+  flex:0 0 auto; width:26px; height:26px; border-radius:50%; margin-top:1px;
+  border:2px solid var(--rosa-claro); background:var(--branco); color:#fff;
+  display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;
+}
+.missao li button svg{width:14px; height:14px; opacity:0}
+.missao li.feito button{background:var(--turq); border-color:var(--turq)}
+.missao li.feito button svg{opacity:1}
+.missao li.feito .txt{color:var(--cinza-claro); text-decoration:line-through}
+.missao li .txt{font-size:14px; line-height:1.4; color:var(--tinta)}
+.missao li .txt a{color:var(--rosa); font-weight:800; text-decoration:none; white-space:nowrap}
+.missao .fim{
+  margin-top:10px; padding:11px 13px; border-radius:13px;
+  background:var(--turq-nevoa); color:var(--turq); font-size:13.5px; font-weight:700; text-align:center;
+}
 
 /* ── carrossel dos bonus ── */
 .trilho{
@@ -177,7 +209,7 @@ a{text-decoration:none; color:inherit}
   display:inline-flex; align-items:center; gap:6px; margin-top:3px;
   background:var(--rosa); color:#fff; font-size:13.5px; font-weight:800;
   padding:10px 18px; border-radius:12px;
-  box-shadow:0 4px 12px rgba(200,70,111,.28);
+  box-shadow:0 4px 12px rgba(179,90,38,.28);
 }
 .botao-linha.suave{background:var(--turq-nevoa); color:var(--turq); box-shadow:none}
 .botao-linha svg{width:13px; height:13px}
@@ -511,7 +543,7 @@ a{text-decoration:none; color:inherit}
   transition:transform .12s;
 }
 .numeros button:active{transform:scale(.9)}
-.numeros button.atual{background:var(--rosa); color:#fff; box-shadow:0 4px 12px rgba(200,70,111,.3)}
+.numeros button.atual{background:var(--rosa); color:#fff; box-shadow:0 4px 12px rgba(179,90,38,.3)}
 
 /* cartao proprio, e bem separado da regua: colado nela, o botao parecia parte da
    paginacao e ninguem entendia que ali se baixa o material inteiro */
@@ -529,7 +561,7 @@ a{text-decoration:none; color:inherit}
 .baixar{
   display:flex; align-items:center; justify-content:center; gap:9px; width:100%;
   background:var(--turq); color:#fff; font-size:14.5px; font-weight:800;
-  padding:15px; border-radius:16px; box-shadow:0 6px 18px rgba(138,42,74,.26);
+  padding:15px; border-radius:16px; box-shadow:0 6px 18px rgba(47,74,53,.26);
 }
 .baixar svg{width:17px; height:17px}
 .dica-arraste{font-size:11px; color:var(--cinza); margin-top:14px; font-weight:600; opacity:.7; text-align:center}
@@ -542,7 +574,7 @@ a{text-decoration:none; color:inherit}
   display:flex; align-items:center; gap:9px;
   background:var(--turq); color:#fff; border-radius:999px;
   padding:13px 19px 13px 16px; font-size:13.5px; font-weight:800;
-  box-shadow:0 8px 24px rgba(138,42,74,.36), 0 2px 6px rgba(138,42,74,.2);
+  box-shadow:0 8px 24px rgba(47,74,53,.36), 0 2px 6px rgba(47,74,53,.2);
   transition:transform .14s, box-shadow .14s;
 }
 .fab:active{transform:scale(.94)}
@@ -734,6 +766,12 @@ a{text-decoration:none; color:inherit}
 
     <div class="cabeca-secao"><h2>Continue de onde parou</h2></div>
     <div id="bloco-principal"></div>
+
+    <div class="cabeca-secao">
+      <h2>Sua primeira missão</h2>
+      <span id="conta-missao"></span>
+    </div>
+    <div id="bloco-missao"></div>
 
     <div class="cabeca-secao">
       <h2>Seus bônus</h2>
@@ -1017,6 +1055,55 @@ var PLAY_CHEIO = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.6v1
 var CADEADO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>';
 var PLAY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5v-7z"/></svg>';
 
+/* A missão aponta para um projeto Fácil que só usa os 3 alicates, sem martelo:
+   Triângulo Minimalista, páginas 22 (modelo) e 23 (montagem) da apostila. */
+var MISSAO = {
+  chave: 'missao-1',
+  projeto: 'Triângulo Minimalista',
+  info: 'Nível Fácil · 25 minutos o par',
+  pagina: 22,
+  passos: [
+    'Separe o alicate de <b>bico redondo</b>, o de <b>bico chato</b>, o de <b>corte</b>, uma régua e uma caneta.',
+    'Abra o projeto e leia a ficha inteira, dos materiais à tabela de corte. <a href="#/ler/principal/22">Abrir a página</a>',
+    'Corte os fios pela <b>tabela de corte</b>: a medida é por brinco, então corte tudo em dobro para o par.',
+    'Monte seguindo os <b>10 quadros</b>, com os dois brincos lado a lado. <a href="#/ler/principal/23">Ver a montagem</a>',
+    'Lixe as pontas, prenda o par num cartão e tire uma foto com luz de janela.',
+  ],
+};
+function lerMissao() {
+  try { return JSON.parse(localStorage.getItem(MISSAO.chave) || '[]'); } catch (e) { return []; }
+}
+function marcarPasso(i) {
+  var feitos = lerMissao();
+  var k = feitos.indexOf(i);
+  if (k < 0) feitos.push(i); else feitos.splice(k, 1);
+  try { localStorage.setItem(MISSAO.chave, JSON.stringify(feitos)); } catch (e) {}
+  montarMissao();
+}
+function montarMissao() {
+  var feitos = lerMissao();
+  var n = MISSAO.passos.filter(function (_, i) { return feitos.indexOf(i) >= 0; }).length;
+  document.getElementById('conta-missao').textContent = n + ' de ' + MISSAO.passos.length;
+  var check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  document.getElementById('bloco-missao').innerHTML =
+    '<div class="missao">' +
+      '<div class="alvo">' +
+        '<img src="assets/livros/principal/pag-' + String(MISSAO.pagina).padStart(3, '0') + '.webp" alt="" width="58" height="82" loading="lazy">' +
+        '<div><span class="chip rosa">Missão 1 · seu primeiro par</span>' +
+        '<b>' + MISSAO.projeto + '</b><span>' + MISSAO.info + '</span></div>' +
+      '</div>' +
+      '<ol>' + MISSAO.passos.map(function (p, i) {
+        var ok = feitos.indexOf(i) >= 0;
+        return '<li class="' + (ok ? 'feito' : '') + '">' +
+          '<button type="button" onclick="marcarPasso(' + i + ')" aria-label="Marcar passo ' + (i + 1) + '">' + check + '</button>' +
+          '<span class="txt">' + p + '</span></li>';
+      }).join('') + '</ol>' +
+      (n === MISSAO.passos.length
+        ? '<div class="fim">Missão cumprida! Seu primeiro par está pronto. Agora escolha o próximo na apostila.</div>'
+        : '') +
+    '</div>';
+}
+
 function montarTudo() {
   var email = '';
   try { email = sessionStorage.getItem('membro') || ''; } catch (e) {}
@@ -1049,6 +1136,8 @@ function montarTudo() {
         '<span class="cta">' + (lida > 1 ? 'Continuar lendo' : 'Começar agora') + SETA + '</span>' +
       '</div>' +
     '</a>';
+
+  montarMissao();
 
   // ── carrossel dos bônus ──
   var liberados = CATALOGO.bonus.filter(function (b) { return !b.embreve; }).length;
