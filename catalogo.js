@@ -48,6 +48,24 @@ const CATALOGO = {
       paginas: 101, de: 'R$ 19,90', por: 'R$ 4,90', liberado: true,
       capa: 'assets/capas/pulseiras.webp',
       pdf: 'pdf/extra-pulseiras-de-arame.pdf', checkout: 'https://pay.wiapy.com/bFH2Y-ATodBc' },
+    // colares: no ar com 40 dos 50 projetos (faltam 11-15 e 46-50, presos no limite de imagem
+    // do ChatGPT em 11/10). Quando chegarem, refazer as paginas na ordem e acertar `paginas`.
+    { slug: 'colares', titulo: '50 Projetos de Colares e Gargantilhas de Arame',
+      sub: 'Gargantilhas rígidas, elos e pedras, com tabela de corte e passo a passo.',
+      paginas: 81, de: 'R$ 19,90', por: 'R$ 4,90', liberado: true,
+      capa: 'assets/capas/colares.webp',
+      pdf: 'pdf/extra-colares-de-arame.pdf', checkout: 'https://pay.wiapy.com/bFH2Y-ATodBc' },
+    // embreve: ja vendidos no checkout, paginas em producao. Aparecem sem abrir.
+    { slug: 'aneis', titulo: '50 Projetos de Anéis de Arame',
+      sub: 'Espirais, pedras, nós e tramas, com a medida de cada aro.',
+      paginas: 0, de: 'R$ 19,90', por: 'R$ 4,90', liberado: true, embreve: true,
+      capa: 'assets/capas/aneis.webp',
+      pdf: 'pdf/extra-aneis-de-arame.pdf', checkout: 'https://pay.wiapy.com/bFH2Y-ATodBc' },
+    { slug: 'pingentes', titulo: '30 Projetos de Pingentes de Arame',
+      sub: 'Pedras em gaiola, símbolos e cristais, sem cola e sem furo.',
+      paginas: 0, de: 'R$ 14,90', por: 'R$ 2,90', liberado: true, embreve: true,
+      capa: 'assets/capas/pingentes.webp',
+      pdf: 'pdf/extra-pingentes-de-arame.pdf', checkout: 'https://pay.wiapy.com/bFH2Y-ATodBc' },
   ],
 
   // A aba de VÍDEOS. Vazia = a aba mostra o cadeado e o aviso de "Em breve".
@@ -60,4 +78,4 @@ const CATALOGO = {
 CATALOGO.porSlug = (slug) =>
   slug === 'principal' ? CATALOGO.principal
     : CATALOGO.bonus.find(b => b.slug === slug && !b.embreve)
-    || CATALOGO.ofertas.find(o => o.slug === slug && o.liberado);
+    || CATALOGO.ofertas.find(o => o.slug === slug && o.liberado && !o.embreve);

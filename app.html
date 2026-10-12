@@ -1163,6 +1163,15 @@ function montarTudo() {
   // ── produtos extras: miniatura à esquerda; nome, páginas e botão empilhados à direita.
   //    liberado = abre no leitor e nao mostra preco; senao vai para o checkout com o valor ──
   var ofertas = CATALOGO.ofertas.map(function (o) {
+    // em breve: o extra ja esta a venda, mas as paginas ainda estao saindo. Nao abre.
+    if (o.embreve) return '<div class="linha" aria-disabled="true">' +
+      '<div class="mini"><img src="' + peq(o.capa) + '" alt="" loading="lazy" width="89" height="126" style="filter:grayscale(.35) brightness(.85)"></div>' +
+      '<div class="dados">' +
+        '<h4>' + o.titulo + '</h4>' +
+        '<p class="meta">' + (o.aviso || 'Liberando em até 24h') + '</p>' +
+        '<span class="botao-linha" style="opacity:.6">Em breve</span>' +
+      '</div>' +
+    '</div>';
     var livre = o.liberado;
     return '<a class="linha toque" href="' + (livre ? '#/ler/' + o.slug : o.checkout) + '">' +
       '<div class="mini"><img src="' + peq(o.capa) + '" alt="" loading="lazy" width="89" height="126"></div>' +
@@ -1225,7 +1234,7 @@ function montarTudo() {
   // ── biblioteca: o principal e os bônus na mesma lista ──
   // enquanto os extras estao liberados, eles contam como material da aluna
   var tudo = [CATALOGO.principal].concat(CATALOGO.bonus.filter(function (b) { return !b.embreve; }))
-    .concat(CATALOGO.ofertas.filter(function (o) { return o.liberado; }));
+    .concat(CATALOGO.ofertas.filter(function (o) { return o.liberado && !o.embreve; }));
   document.getElementById('conta-biblioteca').textContent =
     tudo.length + ' materiais · ' + tudo.reduce(function (s, l) { return s + l.paginas; }, 0) + ' páginas no total';
   document.getElementById('lista-biblioteca').innerHTML = tudo.map(function (l) {
